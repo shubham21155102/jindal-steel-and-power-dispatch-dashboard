@@ -39,32 +39,32 @@ const Header = () => {
             href="/events"
             className="nav-menu links-header mr-8  place-self-center"
           >
-            finance
+            {/* finance */}
           </Link>
           <Link
             href="/workshops"
             className="nav-menu links-header mr-8  place-self-center"
           >
-          administration
+          {/* administration */}
           </Link>
 
           <Link
             href="/glimpses"
             className="nav-menu links-header mr-8  place-self-center "
           >
-            management
+            {/* management */}
           </Link>
           <Link
             href="/team"
             className="nav-menu links-header mr-8  place-self-center"
           >
-            team
+            {/* team */}
           </Link>
           <Link
             href="/faq"
             className="nav-menu links-header mr-8  place-self-center"
           >
-            faq
+            {/* faq */}
           </Link>
           <div
             className=" links-header w-auto pr-4 place-self-center"
