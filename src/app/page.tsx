@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
@@ -16,7 +15,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { styled } from '@mui/material/styles';
 
-const ExpandMore = styled((props) => {
+interface ExpandMoreProps {
+  expand: boolean;
+  onClick: () => void;
+  ariaExpanded: boolean;
+  ariaLabel: string;
+}
+
+const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
@@ -30,10 +36,10 @@ const ExpandMore = styled((props) => {
 export default function Home() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState<Record<number, boolean>>({});
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandClick = (index: number) => {
+    setExpanded((prevState) => ({ ...prevState, [index]: !prevState[index] }));
   };
 
   useEffect(() => {
@@ -55,7 +61,7 @@ export default function Home() {
     tripDetails();
   }, []);
 
-  const calculateDuration = (startTime, endTime) => {
+  const calculateDuration = (startTime: string, endTime: string) => {
     const start = parseInt(startTime, 10);
     const end = parseInt(endTime, 10);
     const durationMs = end - start;
@@ -102,19 +108,18 @@ export default function Home() {
                 <ShareIcon />
               </IconButton>
               <ExpandMore
-                expand={expanded}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
+                expand={expanded[index] || false}
+                onClick={() => handleExpandClick(index)}
+                aria-expanded={expanded[index] || false}
                 aria-label="show more"
               >
                 <ExpandMoreIcon />
               </ExpandMore>
             </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <Collapse in={expanded[index] || false} timeout="auto" unmountOnExit>
               <CardContent>
                 <Typography paragraph>
-                  Start Time: {new Date(parseInt(item.startTime, 10)).toLocaleString()}
-                  End Time: {new Date(parseInt(item.endTime, 10)).toLocaleString()}
+                  Additional details about the trip can go here.
                 </Typography>
               </CardContent>
             </Collapse>
