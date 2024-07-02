@@ -13,15 +13,19 @@ const Footer = (props: Props) => {
     }, []);
   return (
     <>
-      <div className="flex bg-slate-300">
-        <div className="bg-themeDark2 py-14 flex">
+      <div className=" bg-slate-300">
+      {/* <div className="flex bg-slate-300"> */}
+        {/* <div className="bg-themeDark2 py-14 flex"> */}
+        <div className="bg-themeDark2 py-14 flex"> 
           <div className="back_top">
             <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
               <path d="M2 11.7654L12.8033 1.7381C13.613 0.986552 14.885 1.02678 15.6445 1.82796L25.8684 12.6119" stroke="#F5821E" strokeWidth="2" strokeLinecap="round"></path>
             </svg>
           </div>
           <div className="container">
-            <div className="row flex">
+            <div className="row">
+            {/* <div className="row flex"> */}
+
               <div className="col-12 sm:col-6 lg:col-2">
                 <div className="footer-info">
                   <Link href="/">
