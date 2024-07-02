@@ -11,6 +11,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
+import Footer from "./[slug]/Footer";
 
 const cards = [
   {
@@ -54,8 +55,7 @@ const CardsList = () => {
   return (
     <>
       <Header />
-    
-      <div className="h-screen justify-center items-center">
+     <div className="h-screen justify-center items-center">
         <video
           className="absolute top-0 left-0 w-full h-full object-cover z-0"
           src="/vid.mp4"
@@ -64,24 +64,24 @@ const CardsList = () => {
           muted
         />
         <Carousel className="relative flex gap-4 top-28">
-          <CarouselPrevious />
+          {/* <CarouselPrevious /> */}
           <CarouselContent>
             {cards.map((card, index) => (
               <CarouselItem key={index}>
-                
-                <Card>
+                <Card className="bg-transparent">
                   <center>
-                  <CardContent>
-                    <CardComponent name={card.name} image={card.image} id={card.id} />
-                  </CardContent>
+                    <CardContent className="bg-transparent">
+                      <CardComponent name={card.name} image={card.image} id={card.id} />
+                    </CardContent>
                   </center>
                 </Card>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselNext />
+          {/* <CarouselNext /> */}
         </Carousel>
       </div>
+      <Footer/>
     </>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
+import Footer from './Footer';
 
 type Props = {}
 
@@ -10,43 +11,6 @@ const VehicleDetails = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [TotalTrips, setTotalTrips] = useState(0);
   const [TotalTime, setTotalTime] = useState(0);
-  // const cards = [
-  //   {
-  //     id: "tipper",
-  //     image: "/tipper.webp",
-  //     name: "Tipper",
-  //   },
-  //   {
-  //     id: "surface_miner",
-  //     image: "/surface_miner.jpg",
-  //     name: "Surface Miner",
-  //   },
-  //   {
-  //     id: "excavator",
-  //     image: "/excavator.jpeg",
-  //     name: "Excavator",
-  //   },
-  //   {
-  //     id: "dumper",
-  //     image: "/dumper.png",
-  //     name: "Dumper",
-  //   },
-  //   {
-  //     id: "loader",
-  //     image: "/loader.png",
-  //     name: "Loader",
-  //   },
-  //   {
-  //     id: "dozer",
-  //     image: "/dozer.png",
-  //     name: "Excavator",
-  //   },
-  //   {
-  //     id: "water_tanker",
-  //     image: "/water_tanker.png",
-  //     name: "Water Tanker",
-  //   },
-  // ];
   const mapping: any = {
     "tipper": "Tipper",
     "surface_miner": "Surface Miner",
@@ -121,11 +85,11 @@ const VehicleDetails = (props: any) => {
             <p className="text-lg font-semibold">Total Time Taken: {TotalTime} Seconds</p>
           </div>
           {isLoading ? (
-            <p className="text-center text-gray-500">Loading...</p>
+            <p className="text-center text-gray-500 ">Loading...</p>
           ) : (
             <>
               {data.map((item: any, index: number) => (
-                <div key={index} className="border border-gray-300 p-4 rounded-lg shadow-md bg-white bg-opacity-90">
+                <div key={index} className="border border-gray-300 p-4 rounded-lg shadow-md bg-white bg-opacity-80">
                   <p className="text-lg font-semibold">Vehicle ID: {item.vehicleId}</p>
                   <p className="text-lg font-semibold">Vehicle Type: {item.vehicleType}</p>
                   <p>Total Time Taken: <span className="font-mono">{calculateDuration(item.startTime, item.endTime)}</span></p>
@@ -135,6 +99,7 @@ const VehicleDetails = (props: any) => {
           )}
         </div>
       </div>
+      <Footer/>
     </>
   );
 }
