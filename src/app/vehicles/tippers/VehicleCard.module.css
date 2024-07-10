@@ -1,0 +1,73 @@
+/* components/VehicleCard.module.css */
+
+.vehicleCardContainer {
+    margin: 0 auto;
+    margin-top: 0.5rem;
+    width: 90%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(226, 232, 240, 1);
+    background-color: #fff;
+  }
+  
+  .flexContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+  }
+  
+  .tooltip {
+    position: relative;
+  }
+  
+  .tooltipLink {
+    text-decoration: none;
+  }
+  
+  .vehicleId {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0 0.5rem;
+  }
+  
+  .button svg {
+    fill: none;
+    stroke: #546988;
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  
+  .button svg path,
+  .button svg circle,
+  .button svg ellipse {
+    stroke: #546988;
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  
+  .tooltip[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 12px;
+    z-index: 10;
+  }
