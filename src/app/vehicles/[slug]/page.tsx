@@ -63,22 +63,33 @@ const VehicleDetails = (props: any) => {
 
   const shiftWiseFiltering = (shift: string) => {
     const filtered = data.filter((item: any) => item.shift === shift);
+    setTotalTrips(filtered.length);
     setFilteredData(filtered);
+    let totalTimeSum = 0;
+    filtered.forEach((item: any) => {
+      const duration = calculateDuration(item.startTime, item.endTime);
+      totalTimeSum += parseDuration(duration);
+    });
+    setTotalTime(totalTimeSum);
   };
 
   const dateWiseFiltering = (date: string) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  
-    // Convert input date to a formatted string
     const formattedDate = new Date(date).toLocaleDateString('en-US', options);
     console.log(formattedDate);
   
     const filtered = data.filter((item: any) => {
-      // Convert each item.date to a formatted string
       const itemDateFormatted = new Date(item.date).toLocaleDateString('en-US', options);
-      // Compare formatted dates
       return itemDateFormatted === formattedDate;
     });
+    setTotalTrips(filtered.length);
+    setFilteredData(filtered);
+    let totalTimeSum = 0;
+    filtered.forEach((item: any) => {
+      const duration = calculateDuration(item.startTime, item.endTime);
+      totalTimeSum += parseDuration(duration);
+    });
+    setTotalTime(totalTimeSum);
   
     setFilteredData(filtered);
   };
@@ -93,6 +104,14 @@ const VehicleDetails = (props: any) => {
       const matchesDate = formattedDate ? itemDateFormatted === formattedDate : true;
       return matchesShift && matchesDate;
     });
+    setTotalTrips(filtered.length);
+    setFilteredData(filtered);
+    let totalTimeSum = 0;
+    filtered.forEach((item: any) => {
+      const duration = calculateDuration(item.startTime, item.endTime);
+      totalTimeSum += parseDuration(duration);
+    });
+    setTotalTime(totalTimeSum);
 
     setFilteredData(filtered);
   };
@@ -162,6 +181,7 @@ const VehicleDetails = (props: any) => {
     return totalSeconds;
   };
 
+
   return (
     <>
       <Header />
@@ -179,6 +199,33 @@ const VehicleDetails = (props: any) => {
             <p className="text-lg font-semibold">Total Trips: {totalTrips}</p>
             <p className="text-lg font-semibold">Total Time Taken: {totalTime} Seconds</p>
           </div>
+
+          <div className="flex gap-4">
+            <select
+              value={selectedShift}
+              onChange={(e) => setSelectedShift(e.target.value)}
+              className="p-2 border border-gray-300 rounded-md"
+            >
+              <option value="">Select Shift</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="General">General</option>
+            </select>
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="p-2 border border-gray-300 rounded-md"
+            />
+            <button
+              onClick={combinedFiltering}
+              className="p-2 bg-blue-500 text-white rounded-md"
+            >
+              Filter
+            </button>
+          </div>
+
           {isLoading ? (
             <p className="text-center text-gray-500 ">Loading...</p>
           ) : (
@@ -189,7 +236,7 @@ const VehicleDetails = (props: any) => {
                     <h2 className="text-xl font-bold text-blue-500 cursor-pointer">Vehicle ID: {item.vehicleId}</h2>
                   </Link>
                   <p className="text-lg font-semibold cursor-pointer" onClick={() => shiftWiseFiltering(item.shift)}>Shift: {item.shift}</p>
-                  <p className="text-lg font-semibold" onClick={() => dateWiseFiltering(item.date)}>Date: {(item.date)}</p>
+                  <p className="text-lg font-semibold" onClick={() => dateWiseFiltering(item.date)}>Date: {item.date}</p>
                   <p className="text-lg font-semibold">Vehicle Type: {item.vehicleType}</p>
                   <p>Total Time Taken: <span className="font-mono">{calculateDuration(item.startTime, item.endTime)}</span></p>
                 </div>
