@@ -74,7 +74,7 @@ const VehicleDetails = (props: any) => {
   };
 
   const dateWiseFiltering = (date: string) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(date).toLocaleDateString('en-US', options);
     console.log(formattedDate);
   
@@ -95,7 +95,7 @@ const VehicleDetails = (props: any) => {
   };
 
   const combinedFiltering = () => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = selectedDate ? new Date(selectedDate).toLocaleDateString('en-US', options) : '';
 
     const filtered = data.filter((item: any) => {
@@ -116,7 +116,7 @@ const VehicleDetails = (props: any) => {
     setFilteredData(filtered);
   };
   const changeDateFormatToDate=(date:string)=>{
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(date).toLocaleDateString('en-US', options);
     console.log(formattedDate);
     return changeDateFormatToDate;
