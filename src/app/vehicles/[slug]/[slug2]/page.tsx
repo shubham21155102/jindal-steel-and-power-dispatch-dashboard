@@ -67,8 +67,6 @@ const VehicleDetailsFromId = (props: any) => {
         }
         const data = await res.json();
         console.log("Fetched data:", data);
-      
-       
         setData(data.data);
         setTotalTrips(data.data.length);
         data.data.forEach((item: any) => {

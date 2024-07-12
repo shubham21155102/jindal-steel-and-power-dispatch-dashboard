@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Link from 'next/link';
-
 type Props = {}
-
 const VehicleDetails = (props: any) => {
   const { slug } = props.params;
   const [data, setData] = useState([]);
@@ -15,7 +13,6 @@ const VehicleDetails = (props: any) => {
   const [totalTime, setTotalTime] = useState(0);
   const [selectedShift, setSelectedShift] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
-
   const mapping: any = {
     "tipper": "Tipper",
     "surface_miner": "Surface Miner",
@@ -62,6 +59,7 @@ const VehicleDetails = (props: any) => {
   };
 
   const shiftWiseFiltering = (shift: string) => {
+    console.log("Shift Filtering On")
     const filtered = data.filter((item: any) => item.shift === shift);
     setTotalTrips(filtered.length);
     setFilteredData(filtered);
@@ -74,10 +72,10 @@ const VehicleDetails = (props: any) => {
   };
 
   const dateWiseFiltering = (date: string) => {
+    console.log("Date Filtering On")
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(date).toLocaleDateString('en-US', options);
     console.log(formattedDate);
-  
     const filtered = data.filter((item: any) => {
       const itemDateFormatted = new Date(item.date).toLocaleDateString('en-US', options);
       return itemDateFormatted === formattedDate;
@@ -95,13 +93,23 @@ const VehicleDetails = (props: any) => {
   };
 
   const combinedFiltering = () => {
+    console.log("Shift Filtering On")
+    console.log("Date Filtering On")
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = selectedDate ? new Date(selectedDate).toLocaleDateString('en-US', options) : '';
-
+    console.log(formattedDate);
+    console.log(selectedDate);
+    let parsedDate1 = new Date(formattedDate);
+    let parsedDate2 = new Date(selectedDate);
+    parsedDate1.setHours(0, 0, 0, 0);
+    parsedDate2.setHours(0, 0, 0, 0);    
+    console.log(parsedDate1);
+    console.log(parsedDate2);
+    console.log(parsedDate1===parsedDate2);
     const filtered = data.filter((item: any) => {
       const itemDateFormatted = new Date(item.date).toLocaleDateString('en-US', options);
       const matchesShift = selectedShift ? item.shift === selectedShift : true;
-      const matchesDate = formattedDate ? itemDateFormatted === formattedDate : true;
+      const matchesDate = selectedDate ? parsedDate1.getTime() === parsedDate2.getTime() : true;
       return matchesShift && matchesDate;
     });
     setTotalTrips(filtered.length);
