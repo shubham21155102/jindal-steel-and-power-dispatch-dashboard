@@ -19,9 +19,9 @@ const cards = [
   //   name: "Tipper",
   // },
   {
-    id: "surface_miner",
-    image: "/surface_miner.jpg",
-    name: "Surface Miner",
+    id: "dumper",
+    image: "/dumper.jpeg",
+    name: "Dumper",
   },
   {
     id: "excavator",
@@ -29,9 +29,9 @@ const cards = [
     name: "Excavator",
   },
   {
-    id: "dumper",
-    image: "/dumper.jpeg",
-    name: "Dumper",
+    id: "surface_miner",
+    image: "/surface_miner.jpg",
+    name: "Surface Miner",
   },
   {
     id: "loader",
