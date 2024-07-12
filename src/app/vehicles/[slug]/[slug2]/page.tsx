@@ -89,14 +89,15 @@ const VehicleDetailsFromId = (props: any) => {
     <Header />
 
     <div className="relative w-full h-screen overflow-x-scroll scroll-smooth mt-24">
-        <video 
-          className="absolute top-0 left-0 w-full h-full object-cover" 
-          src="/vid.mp4" 
-          autoPlay 
-          loop 
-          muted 
+         {/*
+       <video
+          className="absolute top-0 left-0 w-full h-full object-cover z-0"
+          src="/vid.mp4"
+          autoPlay
+          loop
+          muted
         />
-       
+      */} 
         <div className="relative flex flex-col gap-4 z-10 p-4 bg-white bg-opacity-70 rounded-lg">
           <h1 className="text-3xl font-bold text-center my-4">Details Of {slug2}</h1>
           <div className="flex justify-between">

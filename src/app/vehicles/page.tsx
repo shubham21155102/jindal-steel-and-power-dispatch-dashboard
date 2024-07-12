@@ -140,13 +140,15 @@ const CardsList = () => {
     <>
       <Header />
      <div className="h-screen justify-center items-center">
-        <video
+      {/*
+       <video
           className="absolute top-0 left-0 w-full h-full object-cover z-0"
           src="/vid.mp4"
           autoPlay
           loop
           muted
         />
+      */} 
         <Carousel className="relative flex gap-4 top-28">
           {/* <CarouselPrevious /> */}
           <CarouselContent>
