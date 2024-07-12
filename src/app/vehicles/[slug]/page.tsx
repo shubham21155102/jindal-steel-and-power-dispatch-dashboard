@@ -69,16 +69,22 @@ const VehicleDetails = (props: any) => {
       totalTimeSum += parseDuration(duration);
     });
     setTotalTime(totalTimeSum);
+    setSelectedShift('');
   };
 
   const dateWiseFiltering = (date: string) => {
     console.log("Date Filtering On")
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+    let parsedDate1 = new Date(formattedDate);
     console.log(formattedDate);
     const filtered = data.filter((item: any) => {
-      const itemDateFormatted = new Date(item.date).toLocaleDateString('en-US', options);
-      return itemDateFormatted === formattedDate;
+      const parsedDate2 = new Date(item.date);
+      parsedDate1.setHours(0, 0, 0, 0);
+      parsedDate2.setHours(0, 0, 0, 0);
+      console.log(parsedDate1);
+      console.log(parsedDate2);
+      return parsedDate1.getTime() === parsedDate2.getTime();
     });
     setTotalTrips(filtered.length);
     setFilteredData(filtered);
@@ -90,28 +96,38 @@ const VehicleDetails = (props: any) => {
     setTotalTime(totalTimeSum);
   
     setFilteredData(filtered);
+    setSelectedDate('');
   };
 
   const combinedFiltering = () => {
-    console.log("Shift Filtering On")
-    console.log("Date Filtering On")
+    if(selectedDate==='' && selectedShift!==''){
+      console.log("Shift Filtering On")
+      shiftWiseFiltering(selectedShift);
+      return;
+    }
+    if(selectedDate!=='' && selectedShift===''){
+      console.log("Date Filtering On")
+      dateWiseFiltering(selectedDate);
+      return;
+    }
+    if(selectedDate==='' && selectedShift===''){
+      alert("Please select a date or shift to filter the data");
+      setFilteredData([]);
+      return;
+    }
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = selectedDate ? new Date(selectedDate).toLocaleDateString('en-US', options) : '';
-    console.log(formattedDate);
-    console.log(selectedDate);
     let parsedDate1 = new Date(formattedDate);
-    let parsedDate2 = new Date(selectedDate);
-    parsedDate1.setHours(0, 0, 0, 0);
-    parsedDate2.setHours(0, 0, 0, 0);    
-    console.log(parsedDate1);
-    console.log(parsedDate2);
-    console.log(parsedDate1===parsedDate2);
+    console.log(formattedDate);
     const filtered = data.filter((item: any) => {
-      const itemDateFormatted = new Date(item.date).toLocaleDateString('en-US', options);
-      const matchesShift = selectedShift ? item.shift === selectedShift : true;
-      const matchesDate = selectedDate ? parsedDate1.getTime() === parsedDate2.getTime() : true;
-      return matchesShift && matchesDate;
+      const parsedDate2 = new Date(item.date);
+      parsedDate1.setHours(0, 0, 0, 0);
+      parsedDate2.setHours(0, 0, 0, 0);
+      console.log(parsedDate1);
+      console.log(parsedDate2);
+      return parsedDate1.getTime() === parsedDate2.getTime() && item.shift === selectedShift;
     });
+    
     setTotalTrips(filtered.length);
     setFilteredData(filtered);
     let totalTimeSum = 0;
@@ -122,6 +138,8 @@ const VehicleDetails = (props: any) => {
     setTotalTime(totalTimeSum);
 
     setFilteredData(filtered);
+    setSelectedDate('');
+    setSelectedShift('');
   };
   const changeDateFormatToDate=(date:string)=>{
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -146,16 +164,6 @@ const VehicleDetails = (props: any) => {
         }
         const data = await res.json();
         console.log("Fetched data:", data);
-        // data.data.map((x)=>{
-        //   x.datee=changeDateFormatToDate(x.date)
-        // })
-        // const formattedData = data.data.map((item: any) => {
-        //   return {
-        //     ...item,
-        //     datee: changeDateFormatToDate(item.date)
-        //   };
-        // }
-        // );
         setData(data.data);
         setFilteredData(data.data);
         setTotalTrips(data.data.length);
@@ -240,6 +248,11 @@ const VehicleDetails = (props: any) => {
             <p className="text-center text-gray-500 ">Loading...</p>
           ) : (
             <>
+            <p>
+              {selectedDate!=='' && selectedShift!=='' ? `Showing filtered data for ${selectedDate} and ${selectedShift} shift` : ''}
+              {selectedDate!=='' && selectedShift==='' ? `Showing filtered data for ${selectedDate}` : ''}
+              {selectedDate==='' && selectedShift!=='' ? `Showing filtered data for ${selectedShift} shift` : ''}
+            </p>
               {filteredData.map((item: any, index: number) => (
                 <div key={index} className="border border-gray-300 p-4 rounded-lg shadow-md bg-white bg-opacity-80">
                   <Link href={`/vehicles/${slug}/${item.vehicleId}`}>
