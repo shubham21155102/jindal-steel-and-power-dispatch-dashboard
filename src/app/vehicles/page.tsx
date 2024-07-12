@@ -24,6 +24,11 @@ const cards = [
     name: "Dumper",
   },
   {
+    id: "water_tanker",
+    image: "/water_tanker.png",
+    name: "Water Tanker",
+  },
+  {
     id: "excavator",
     image: "/excavator.jpeg",
     name: "Excavator",
@@ -42,11 +47,6 @@ const cards = [
     id: "dozer",
     image: "/dozer.png",
     name: "Excavator",
-  },
-  {
-    id: "water_tanker",
-    image: "/water_tanker.png",
-    name: "Water Tanker",
   },
   {
     id: "grader",
